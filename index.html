@@ -1,1 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Venkata Kartheek · Links</title>
 
+  <!-- Font Awesome -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  />
+
+  <!-- Google Fonts: Outfit (display) + DM Sans (body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=DM+Sans:wght@400;500&display=swap"
+    rel="stylesheet"
+  />
+
+  <style>
+    /* ══════════════════════════════════════
+       RESET + DESIGN TOKENS
+       ══════════════════════════════════════ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --glass-dark:    rgba(36, 35, 35, 0.84);
+      --glass-darker:  rgba(26, 25, 25, 0.90);
+      --glass-border:  rgba(255, 255, 255, 0.12);
+      --divider:       rgba(255, 255, 255, 0.11);
+      --text-white:    #FFFFFF;
+      --text-muted:    rgba(255, 255, 255, 0.58);
+      --pill-bg:       rgba(255, 255, 255, 0.09);
+      --pill-border:   rgba(255, 255, 255, 0.20);
+      --pill-hover:    rgba(255, 255, 255, 0.18);
+      --circle-bg:     rgba(255, 255, 255, 0.10);
+      --circle-hover:  rgba(255, 255, 255, 0.20);
+      --blur:          blur(24px) saturate(160%);
+      --radius-card:   18px;
+      --font-display:  'Outfit', sans-serif;
+      --font-body:     'DM Sans', sans-serif;
+      --shadow-card:   0 28px 72px rgba(0, 0, 0, 0.60);
+    }
+
+    /* ══════════════════════════════════════
+       BODY — autumn forest background
+       Image type: wide landscape photo of
+       an orange/golden autumn forest with
+       tall trees, slightly overcast sky,
+       muted warm tones. Works best at 16:9.
+       ══════════════════════════════════════ */
+    body {
+      font-family: var(--font-body);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 16px;
+
+      /* Unsplash autumn forest (Johannes Plenio — free to use) */
+      background-image: url('https://images.unsplash.com/photo-1473448912268-2022ce9509d8');
+      background-size: cover;
+      background-position: center top;
+      background-attachment: fixed;
+      background-color: #2b1e14; /* fallback if image fails */
+    }
+
+    /* Darkening overlay over the photo */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: rgba(8, 6, 4, 0.38);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ══════════════════════════════════════
+       PAGE WRAPPER
+       ══════════════════════════════════════ */
+    .page {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 960px;
+    }
+
+    /* ══════════════════════════════════════
+       GLASS CARD — two-panel
+       ══════════════════════════════════════ */
+    .glass-card {
+      display: flex;
+      border-radius: var(--radius-card);
+      border: 1px solid var(--glass-border);
+      box-shadow: var(--shadow-card);
+      overflow: hidden;
+      backdrop-filter: var(--blur);
+      -webkit-backdrop-filter: var(--blur);
+      animation: cardIn 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+
+    @keyframes cardIn {
+      from { opacity: 0; transform: translateY(30px) scale(0.97); }
+      to   { opacity: 1; transform: none; }
+    }
+
+    /* ─── LEFT PANEL ─── */
+    .left-panel {
+      background: var(--glass-darker);
+      width: 290px;
+      flex-shrink: 0;
+      padding: 40px 30px 38px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .avatar-wrap {
+      width: 84px;
+      height: 84px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 1.5px solid rgba(255,255,255,0.22);
+      background: #555;
+      margin-bottom: 22px;
+    }
+    .avatar-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .profile-name {
+      font-family: var(--font-display);
+      font-size: 1.9rem;
+      font-weight: 600;
+      color: var(--text-white);
+      line-height: 1.1;
+      margin-bottom: 16px;
+      letter-spacing: -0.3px;
+    }
+
+    .profile-bio {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      line-height: 1.72;
+      margin-bottom: 36px;
+      flex: 1;
+    }
+
+    /* 3 circular icon buttons — matching reference layout */
+    .action-row {
+      display: flex;
+      gap: 12px;
+    }
+
+    .circle-btn {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: 1px solid var(--glass-border);
+      background: var(--circle-bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255,255,255,0.85);
+      font-size: 0.95rem;
+      text-decoration: none;
+      transition: background 0.2s, border-color 0.2s, transform 0.2s;
+    }
+    .circle-btn:hover {
+      background: var(--circle-hover);
+      border-color: rgba(255,255,255,0.38);
+      transform: translateY(-2px);
+    }
+
+    /* ─── VERTICAL DIVIDER ─── */
+    .vdivider {
+      width: 1px;
+      background: var(--divider);
+      flex-shrink: 0;
+    }
+
+    /* ─── RIGHT PANEL ─── */
+    .right-panel {
+      flex: 1;
+      background: var(--glass-dark);
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+      max-height: calc(100vh - 80px);
+      scrollbar-width: none;
+    }
+    .right-panel::-webkit-scrollbar { display: none; }
+
+    /* ─── SECTION ─── */
+    .r-section {
+      padding: 30px 34px;
+      animation: fadeUp 0.5s cubic-bezier(0.22,1,0.36,1) both;
+    }
+    .r-section:nth-child(1) { animation-delay: 0.18s; }
+    .r-section:nth-child(3) { animation-delay: 0.26s; }
+    .r-section:nth-child(5) { animation-delay: 0.34s; }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: none; }
+    }
+
+    .r-section-title {
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      font-weight: 600;
+      color: var(--text-white);
+      margin-bottom: 18px;
+      letter-spacing: -0.15px;
+    }
+
+    /* Horizontal section divider */
+    .hdivider {
+      height: 1px;
+      background: var(--divider);
+      margin: 0 34px;
+    }
+
+    /* ─── PILL BUTTONS ─── */
+    .pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 8px 16px;
+      border-radius: 999px;
+      border: 1px solid var(--pill-border);
+      background: var(--pill-bg);
+      color: rgba(255,255,255,0.88);
+      font-family: var(--font-body);
+      font-size: 0.84rem;
+      font-weight: 500;
+      text-decoration: none;
+      white-space: nowrap;
+      cursor: pointer;
+      transition: background 0.18s, border-color 0.18s, transform 0.18s, color 0.18s;
+    }
+    .pill:hover {
+      background: var(--pill-hover);
+      border-color: rgba(255,255,255,0.42);
+      color: #fff;
+      transform: translateY(-1px);
+    }
+    .pill i { font-size: 0.78rem; opacity: 0.8; }
+
+    /* Smaller pill for project action links */
+    .pill-sm {
+      padding: 6px 13px;
+      font-size: 0.78rem;
+    }
+
+    /* Project block: label + pills */
+    .proj-block { display: flex; flex-direction: column; gap: 7px; }
+
+    .proj-label {
+      font-family: var(--font-display);
+      font-size: 0.83rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      letter-spacing: 0.1px;
+    }
+
+    .proj-actions { display: flex; gap: 7px; flex-wrap: wrap; }
+
+    /* ══════════════════════════════════════
+       MOBILE — stack panels vertically
+       ══════════════════════════════════════ */
+    @media (max-width: 680px) {
+      body { padding: 20px 12px 44px; align-items: flex-start; }
+
+      .glass-card { flex-direction: column; }
+
+      .left-panel { width: 100%; padding: 30px 22px 26px; }
+
+      .vdivider { width: 100%; height: 1px; }
+
+      .right-panel { max-height: none; overflow-y: visible; }
+
+      .r-section { padding: 24px 20px; }
+      .hdivider { margin: 0 20px; }
+      .profile-name { font-size: 1.65rem; }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="page">
+    <div class="glass-card">
+
+      <!-- ═══════════════════════
+           LEFT — Profile
+           ═══════════════════════ -->
+      <div class="left-panel">
+
+        <div class="avatar-wrap">
+          <img
+            src="https://drive.google.com/uc?export=view&id=1UJJxyFO2TSLBrm2eYr7YTHFXwHBTFqPO"
+            alt="Venkata Kartheek"
+            loading="eager"
+            onerror="this.style.display='none'"
+          />
+        </div>
+
+        <h1 class="profile-name">Venkata<br>Kartheek</h1>
+
+        <p class="profile-bio">
+          Computer Science undergraduate specialising in backend engineering
+          and full-stack development. Pursuing B.Tech in AI &amp; ML at
+          Vidya Institute of Technology, Hyderabad. Experienced with
+          Spring Boot, REST APIs, and relational databases.
+        </p>
+
+        <!-- 3 circular buttons — Portfolio · GitHub · Email -->
+        <div class="action-row">
+          <a
+            class="circle-btn"
+            href="https://kartheek-portfolio.vercel.app/"
+            target="_blank"
+            rel="noopener"
+            title="Portfolio"
+          ><i class="fas fa-globe"></i></a>
+
+          <a
+            class="circle-btn"
+            href="https://github.com/Vkchowdary05"
+            target="_blank"
+            rel="noopener"
+            title="GitHub"
+          ><i class="fab fa-github"></i></a>
+
+          <a
+            class="circle-btn"
+            href="mailto:papasanikarthilk@gmail.com"
+            title="Email"
+          ><i class="fas fa-envelope"></i></a>
+        </div>
+
+      </div>
+
+      <!-- Vertical divider -->
+      <div class="vdivider"></div>
+
+      <!-- ═══════════════════════
+           RIGHT — Links
+           ═══════════════════════ -->
+      <div class="right-panel">
+
+        <!-- SECTION: Projects -->
+        <div class="r-section">
+          <h2 class="r-section-title">Projects</h2>
+
+          <div style="display:flex;flex-direction:column;gap:14px;">
+
+            <div class="proj-block">
+              <span class="proj-label">Gym Remo — Fitness Platform</span>
+              <div class="proj-actions">
+                <a href="https://gym-remov2.vercel.app/" target="_blank" rel="noopener" class="pill pill-sm">
+                  <i class="fas fa-external-link-alt"></i> Live Demo
+                </a>
+                <a href="https://github.com/Vkchowdary05/gym_remov2" target="_blank" rel="noopener" class="pill pill-sm">
+                  <i class="fab fa-github"></i> GitHub
+                </a>
+              </div>
+            </div>
+
+            <div class="proj-block">
+              <span class="proj-label">Career Lens — AI Resume Platform</span>
+              <div class="proj-actions">
+                <a href="https://career-lens-theta.vercel.app/" target="_blank" rel="noopener" class="pill pill-sm">
+                  <i class="fas fa-external-link-alt"></i> Live Demo
+                </a>
+                <a href="https://github.com/Vkchowdary05/career-lens" target="_blank" rel="noopener" class="pill pill-sm">
+                  <i class="fab fa-github"></i> GitHub
+                </a>
+              </div>
+            </div>
+
+            <div class="proj-block">
+              <span class="proj-label">Exam Ready — Web App</span>
+              <div class="proj-actions">
+                <a href="https://exam-ready-15-jvzs-hrk28xuy1-venakata-kartheeks-projects.vercel.app/" target="_blank" rel="noopener" class="pill pill-sm">
+                  <i class="fas fa-external-link-alt"></i> Live Demo
+                </a>
+                <a href="https://github.com/Vkchowdary05/Exam-ready-15" target="_blank" rel="noopener" class="pill pill-sm">
+                  <i class="fab fa-github"></i> GitHub
+                </a>
+              </div>
+            </div>
+
+            <div class="proj-block">
+              <span class="proj-label">Exam Ready — Android App</span>
+              <div class="proj-actions">
+                <a href="https://github.com/Vkchowdary05/exam-ready-13/releases/download/v1.0.0/app-release.apk" target="_blank" rel="noopener" class="pill pill-sm">
+                  <i class="fas fa-download"></i> Download APK
+                </a>
+                <a href="https://github.com/Vkchowdary05/exam-ready-13" target="_blank" rel="noopener" class="pill pill-sm">
+                  <i class="fab fa-github"></i> GitHub
+                </a>
+              </div>
+            </div>
+
+            <div class="proj-block">
+              <span class="proj-label">Smart Locker — IoT System</span>
+              <div class="proj-actions">
+                <a href="https://github.com/Vkchowdary05/smart-lockers" target="_blank" rel="noopener" class="pill pill-sm">
+                  <i class="fab fa-github"></i> GitHub
+                </a>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="hdivider"></div>
+
+        <!-- SECTION: Certifications -->
+        <div class="r-section">
+          <h2 class="r-section-title">Certifications</h2>
+
+          <div class="pills">
+            <a href="https://drive.google.com/file/d/1FYC_mURR57pkgj-gODXqr1W4EStLfA9M/view?usp=sharing" target="_blank" rel="noopener" class="pill">
+              <i class="fas fa-certificate"></i> FlutterFlow &amp; Supabase
+            </a>
+            <a href="https://drive.google.com/file/d/1YKLCIJpGBLmf41rUVKkPW9cJ_WQDTkHW/view?usp=sharing" target="_blank" rel="noopener" class="pill">
+              <i class="fas fa-certificate"></i> Node, Express &amp; MongoDB
+            </a>
+            <a href="https://trailhead.salesforce.com/users/srebello7/trailmixes/salesforce-platform-developer" target="_blank" rel="noopener" class="pill">
+              <i class="fas fa-cloud"></i> Salesforce Platform Dev
+            </a>
+            <a href="https://drive.google.com/file/d/1zX4uC2D4E2QzjkuyRxCJL3KQGmrho41B/view?usp=sharing" target="_blank" rel="noopener" class="pill">
+              <i class="fab fa-python"></i> Python — CodeTantra
+            </a>
+            <a href="https://drive.google.com/file/d/1l3RGEoxdh8d3KQpSiVVd0zCnli6yzh8d/view?usp=sharing" target="_blank" rel="noopener" class="pill">
+              <i class="fas fa-terminal"></i> Problem Solving using C
+            </a>
+            <a href="https://drive.google.com/file/d/17wlg0e--f-fF_LGf0CY1YM-weSIJ_w1_/view" target="_blank" rel="noopener" class="pill">
+              <i class="fas fa-database"></i> DBMS
+            </a>
+            <a href="https://drive.google.com/file/d/1lqdJADIvOrI9KRKegnv9wGrBebUWAUWE/view" target="_blank" rel="noopener" class="pill">
+              <i class="fab fa-java"></i> OOPs through Java
+            </a>
+            <a href="https://drive.google.com/file/d/1gvV8k7WUSUOqBADq5IS3j1KjQk8zd_Sr/view" target="_blank" rel="noopener" class="pill">
+              <i class="fas fa-robot"></i> AIML Internship
+            </a>
+          </div>
+        </div>
+
+        <div class="hdivider"></div>
+
+        <!-- SECTION: Coding Profiles & Links -->
+        <div class="r-section">
+          <h2 class="r-section-title">Coding Profiles &amp; Links</h2>
+
+          <div class="pills">
+            <a href="https://leetcode.com/u/vk_chowdary05/" target="_blank" rel="noopener" class="pill">
+              <i class="fas fa-code"></i> LeetCode
+            </a>
+            <a href="https://www.codechef.com/users/vk_chowdary" target="_blank" rel="noopener" class="pill">
+              <i class="fas fa-utensils"></i> CodeChef
+            </a>
+            <a href="https://www.hackerrank.com/profile/papasanikarthik" target="_blank" rel="noopener" class="pill">
+              <i class="fab fa-hackerrank"></i> HackerRank
+            </a>
+            <a href="https://github.com/Vkchowdary05" target="_blank" rel="noopener" class="pill">
+              <i class="fab fa-github"></i> GitHub
+            </a>
+            <a href="https://www.linkedin.com/in/kartheek-chowdhary-914b6923b/" target="_blank" rel="noopener" class="pill">
+              <i class="fab fa-linkedin"></i> LinkedIn
+            </a>
+            <a href="https://kartheek-portfolio.vercel.app/" target="_blank" rel="noopener" class="pill">
+              <i class="fas fa-globe"></i> Portfolio
+            </a>
+            <a href="mailto:papasanikarthilk@gmail.com" class="pill">
+              <i class="fas fa-envelope"></i> Email
+            </a>
+          </div>
+        </div>
+
+      </div>
+      <!-- /right-panel -->
+
+    </div>
+    <!-- /glass-card -->
+  </main>
+</body>
+</html>
